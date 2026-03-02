@@ -18,3 +18,23 @@ const produtos = [
     id: 3,
   },
 ];
+
+const vitrine = document.querySelector("#vitrine");
+console.log(produtos);
+
+function render() {
+  vitrine.innerHTML = "";
+
+  produtos.forEach((item) => {
+    const novoLi = document.createElement("li");
+    novoLi.innerHTML = item.produto;
+
+    const novoImg = document.createElement("img");
+    novoImg.src = item.src;
+
+    novoLi.appendChild(novoImg);
+    vitrine.appendChild(novoLi);
+  });
+}
+
+render();
