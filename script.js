@@ -1,7 +1,7 @@
 const produtos = [
   {
     produto: "Mouse Ergonomico",
-    src: "https://tse3.mm.bing.net/th/id/OIP.3rlO2nKgQRUVW8zR6i-SiAHaHa?pid=Api&P=0&h=180",
+    src: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1705310440-61QNE816-HL.jpg?crop=1xw:1xh;center,top&resize=980:*",
     preco: "R$ 9,99",
     id: 1,
   },
@@ -19,6 +19,9 @@ const produtos = [
   },
   {
     produto: "Fone Gamer",
+    src: "https://static3.tcdn.com.br/img/img_prod/670412/fone_de_ouvido_headset_gamer_runmus_k1_led_rgb_preto_3849_1_2b689ab618837e504c865cff190d6b23.jpg",
+    preco: "R$ 250",
+    id: 4,
   },
 ];
 
@@ -39,11 +42,25 @@ function renderizarVitrine() {
     divVitrine.innerHTML = `
     <div class="grid-produtos">
     <h3>${item.produto}</h3>
+    <span>${item.preco}</span>
+    <img class='imgg' src='${item.src}'
     </div>
+    <button onclick="adicionarAoCarrinho(${item.id})">Comprar</button>
     `;
 
     vitrine.appendChild(divVitrine);
   });
+}
+
+function adicionarAoCarrinho(id) {
+  const produtoEncontrado = produtos.find((p) => p.id === id);
+  ("Pegue cada item (chamado aqui de p) e verifique se o id dele é igual ao id que eu estou procurando.");
+  console.log(produtoEncontrado);
+
+  if (produtoEncontrado) {
+    carrinho.push(produtoEncontrado);
+    console.log(carrinho);
+  }
 }
 
 renderizarVitrine();
