@@ -59,6 +59,7 @@ function adicionarAoCarrinho(id) {
 
   if (produtoEncontrado) {
     carrinho.push(produtoEncontrado);
+    localStorage.setItem(localStorageChave, JSON.stringify(carrinho));
     console.log(carrinho);
   }
 }
