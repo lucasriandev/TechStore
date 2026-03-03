@@ -19,22 +19,28 @@ const produtos = [
   },
 ];
 
+const contador = document.querySelector("#contador-carrinho");
+const listaCarrinho = document.querySelector("#lista-carrinho");
 const vitrine = document.querySelector("#vitrine");
-console.log(produtos);
+const valorTotal = document.querySelector("#valor-total");
 
-function render() {
+const localStorageChave = "Carrinho";
+let carrinho = JSON.parse(localStorage.getItem(localStorageChave)) || [];
+
+function renderizarVitrine() {
   vitrine.innerHTML = "";
-
   produtos.forEach((item) => {
-    const novoLi = document.createElement("li");
-    novoLi.innerHTML = item.produto;
+    const divVitrine = document.createElement("div");
+    divVitrine.classList.add(".card-produto");
 
-    const novoImg = document.createElement("img");
-    novoImg.src = item.src;
+    divVitrine.innerHTML = `
+    <div class="grid-produtos">
+    <h3>${item.produto}</h3>
+    </div>
+    `;
 
-    novoLi.appendChild(novoImg);
-    vitrine.appendChild(novoLi);
+    vitrine.appendChild(divVitrine);
   });
 }
 
-render();
+renderizarVitrine();
