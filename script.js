@@ -64,4 +64,12 @@ function adicionarAoCarrinho(id) {
   }
 }
 
+function renderizaCarrinho() {
+  listaCarrinho.innerHTML = "";
+
+  contador.innerText = carrinho.length;
+  carrinho.forEach((adicionados) => {});
+}
+
 renderizarVitrine();
+renderizaCarrinho();
