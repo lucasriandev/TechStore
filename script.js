@@ -2,25 +2,25 @@ const produtos = [
   {
     produto: "Mouse Ergonomico",
     src: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1705310440-61QNE816-HL.jpg?crop=1xw:1xh;center,top&resize=980:*",
-    preco: "R$ 9,99",
+    preco: 9.99,
     id: 1,
   },
   {
     produto: "Teclado Mecanico",
     src: "https://cdn.shoppub.io/cdn-cgi/image/w=1000,h=1000,q=80,f=auto/oficinadosbits/media/uploads/produtos/foto/reuxysnw/file.png",
-    preco: "R$ 29,90",
+    preco: 29.99,
     id: 2,
   },
   {
     produto: "Notebook",
     src: "https://netshopinformatica.com.br/uploads/product_commerce/products/4891/image/aapkd24053001utpf76-821d3e.jpg",
-    preco: "R$ 2,000",
+    preco: 2.199,
     id: 3,
   },
   {
     produto: "Fone Gamer",
     src: "https://static3.tcdn.com.br/img/img_prod/670412/fone_de_ouvido_headset_gamer_runmus_k1_led_rgb_preto_3849_1_2b689ab618837e504c865cff190d6b23.jpg",
-    preco: "R$ 250",
+    preco: 250,
     id: 4,
   },
 ];
@@ -37,15 +37,13 @@ function renderizarVitrine() {
   vitrine.innerHTML = "";
   produtos.forEach((item) => {
     const divVitrine = document.createElement("div");
-    divVitrine.classList.add(".card-produto");
+    divVitrine.classList.add("card-produto");
 
     divVitrine.innerHTML = `
-    <div class="grid-produtos">
-    <h3>${item.produto}</h3>
-    <span>${item.preco}</span>
-    <img class='imgg' src='${item.src}'
-    </div>
-    <button onclick="adicionarAoCarrinho(${item.id})">Comprar</button>
+      <img src='${item.src}' alt='${item.produto}'>
+      <h3>${item.produto}</h3>
+      <span>R$ ${item.preco.toFixed(2)}</span>
+      <button onclick="adicionarAoCarrinho(${item.id})">Comprar</button>
     `;
 
     vitrine.appendChild(divVitrine);
@@ -62,14 +60,45 @@ function adicionarAoCarrinho(id) {
     localStorage.setItem(localStorageChave, JSON.stringify(carrinho));
     console.log(carrinho);
   }
+  renderizaCarrinho();
 }
 
 function renderizaCarrinho() {
-  listaCarrinho.innerHTML = "";
+  listaCarrinho.innerHTML = ``;
 
   contador.innerText = carrinho.length;
-  carrinho.forEach((adicionados) => {});
+  carrinho.forEach((adicionados, index) => {
+    const novaDiv = document.createElement("div");
+    novaDiv.classList.add("item-carrinho");
+    novaDiv.innerHTML = `
+     <p>${adicionados.produto}</p>
+      <p>${adicionados.preco}</p>
+      <img class="img-carrinho" src="${adicionados.src}">
+    `;
+
+    const btnDelete = document.createElement("button");
+    btnDelete.innerHTML = "❌";
+
+    btnDelete.addEventListener("click", () => {
+      carrinho.splice(index, 1);
+      localStorage.setItem(localStorageChave, JSON.stringify(carrinho));
+      renderizaCarrinho();
+    });
+
+    novaDiv.appendChild(btnDelete);
+    listaCarrinho.appendChild(novaDiv);
+  });
+  totalCarrinho();
 }
+
+function totalCarrinho() {
+  const total = carrinho.reduce((cofre, faseAtual) => {
+    return cofre + faseAtual.preco;
+  }, 0);
+  console.log(total);
+  valorTotal.innerHTML = `R$ ${total.toFixed(2)}`;
+}
+totalCarrinho();
 
 renderizarVitrine();
 renderizaCarrinho();
