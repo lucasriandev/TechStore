@@ -58,7 +58,6 @@ function adicionarAoCarrinho(id) {
   if (produtoEncontrado) {
     carrinho.push(produtoEncontrado);
     localStorage.setItem(localStorageChave, JSON.stringify(carrinho));
-    console.log(carrinho);
   }
   renderizaCarrinho();
 }
@@ -67,12 +66,13 @@ function renderizaCarrinho() {
   listaCarrinho.innerHTML = ``;
 
   contador.innerText = carrinho.length;
+  console.log(contador);
   carrinho.forEach((adicionados, index) => {
     const novaDiv = document.createElement("div");
     novaDiv.classList.add("item-carrinho");
     novaDiv.innerHTML = `
      <p>${adicionados.produto}</p>
-      <p>${adicionados.preco}</p>
+      <p> R$${adicionados.preco}</p>
       <img class="img-carrinho" src="${adicionados.src}">
     `;
 
@@ -95,7 +95,6 @@ function totalCarrinho() {
   const total = carrinho.reduce((cofre, faseAtual) => {
     return cofre + faseAtual.preco;
   }, 0);
-  console.log(total);
   valorTotal.innerHTML = `R$ ${total.toFixed(2)}`;
 }
 totalCarrinho();
